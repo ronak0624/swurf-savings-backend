@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
 const AccountSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId, 
@@ -30,4 +31,9 @@ const AccountSchema = new Schema({
     type: String
   }
 });
-module.exports = Account = mongoose.model("account", AccountSchema);
+
+// This creates our model from the above schema, using mongoose's model method
+var Account = mongoose.model("Account", AccountSchema);
+
+// Export the Account model
+module.exports = Account;
