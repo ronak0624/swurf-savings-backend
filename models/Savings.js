@@ -3,16 +3,16 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const SavingsSchema = new Schema({
-    schema: {
+    name: {
       type: String,
       required: true
     },
-    schema: {
-      type: String,
+    price: {
+      type: Double,
       required: true
     },
-    schema: {
-      type: String,
+    priority: {
+      type: Integer,
       required: true
     },
 
