@@ -3,16 +3,16 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const ShiftsSchema = new Schema({
-    schema: {
+    company: {
       type: String,
       required: true
     },
-    schema: {
-      type: String,
+    income: {
+      type: Double,
       required: true
     },
-    schema: {
-      type: String,
+    hours_worked: {
+      type: Double,
       required: true
     }
   });
