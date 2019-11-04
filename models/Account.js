@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const AccountSchema = new Schema({
   userId: {
-    type: Schema.Types.ObjectId, 
+    type: Schema.Types.ObjectId, // how we associate each account with a user
     ref: "users"
   },
   accessToken: {
@@ -32,8 +32,4 @@ const AccountSchema = new Schema({
   }
 });
 
-// This creates our model from the above schema, using mongoose's model method
-var Account = mongoose.model("Account", AccountSchema);
-
-// Export the Account model
-module.exports = Account;
+module.exports = Account = mongoose.model("account", AccountSchema);
