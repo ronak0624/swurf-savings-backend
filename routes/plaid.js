@@ -45,7 +45,6 @@ router.post(
   "/accounts/add",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log("/accounts/add WORKING");
     PUBLIC_TOKEN = req.body.public_token;
 
     const userId = req.user.id;
