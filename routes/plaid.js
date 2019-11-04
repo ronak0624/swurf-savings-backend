@@ -6,12 +6,12 @@ const moment = require("moment");
 const mongoose = require("mongoose");
 
 // Load Account and User models
-const Account = require("../../models/Account");
-const User = require("../../models/User");
+const Account = require("../models/Account");
+const User = require("../models/User");
 
-const PLAID_CLIENT_ID = "YOUR_CLIENT_ID";
-const PLAID_SECRET = "YOUR_SECRET";
-const PLAID_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const PLAID_CLIENT_ID = "5d85749fe6c3e70013343aa8";
+const PLAID_SECRET = "3f58dced13104204ea84bf46f5b1ff";
+const PLAID_PUBLIC_KEY = "82be8cc265c4b9e7a0df749938fe16";
 
 const client = new plaid.Client(
   PLAID_CLIENT_ID,
