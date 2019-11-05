@@ -32,4 +32,9 @@ export default {
   postSaving: function(username,savingData) {
     return axios.post("/api/:" + username + "/savings",savingData);
   },
+
+  //Delete certain saving goal from certain user:
+  deleteShift: function(username,shiftsId){
+    return axios.delete("/api/:" + username + "/saving/"+shiftsId);
+  },
 };
