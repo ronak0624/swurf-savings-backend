@@ -27,7 +27,7 @@
     required: true
   },
 
-  date_created: {
+  time_created: {
     type: Date,
     default: Date.now
   },
@@ -50,6 +50,10 @@
       type: Date,
       required: true
     },
+    time_created: {
+      type: Date,
+      default: Date.now
+    }
   }
   ],
 
@@ -70,6 +74,10 @@
     priority: {
       type: String,
       required: true
+    },
+    time_created: {
+      type: Date,
+      default: Date.now
     }
   }],
 
@@ -90,6 +98,10 @@
     priority: {
       type: String,
       required: true
+    },
+    time_created: {
+      type: Date,
+      default: Date.now
     }
   }],
 };

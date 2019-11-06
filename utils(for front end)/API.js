@@ -63,6 +63,20 @@ export default {
   },
 
   shiftsRemaining: function(user){
-  //TODO:
+    //TODO:
+    // let totalIncome = 0;
+    // for (let i = 0; i < user.shifts.length; i++){
+    //   totalIncome += user.shifts[i].income;
+    // }
+
+    // let totalHoursWorked = 0;
+
+    // for (let i = 0; i < user.shifts.length; i++){
+    //     let hours = user.shifts[i].start_time - user.shifts[i].end_time;
+    //     totalHoursWorked += hours;
+    // }
+    // let totalShifts = totalHoursWorked / 3;
+    // let averageShiftIncome = totalIncome / totalShifts;
+    // let shiftsRemaining = 
   }
 };
