@@ -3,9 +3,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
 
-  _id: ObjectId,
-
-  name: {
+  username: {
     type: String,
     required: true
   },
@@ -26,7 +24,6 @@ const UserSchema = new Schema({
   },
 
   shifts:[{
-    _id: ObjectId,
     company: {
       type: String,
       required: true
@@ -47,11 +44,14 @@ const UserSchema = new Schema({
       type: Date,
       default: Date.now
     },
+    isDeleted:{
+      type: Boolean,
+      default: false
+    },
   }
   ],
 
   savingGoals:[{
-    _id: ObjectId,
     title: {
       type: String,
       required: true
@@ -72,29 +72,13 @@ const UserSchema = new Schema({
       type: Date,
       default: Date.now
     },
-  }],
-
-  achievedSavingGoals:[{
-    _id: ObjectId,
-    title: {
-      type: String,
-      required: true
+    isDeleted:{
+      type: Boolean,
+      default: false
     },
-    price: {
-      type: Double,
-      required: true
-    },
-    price_remaining:{
-      type: Double,
-      required: true
-    },
-    priority: {
-      type: String,
-      required: true
-    },
-    time_created: {
-      type: Date,
-      default: Date.now
+    isAchieved:{
+      type: Boolean,
+      default: false
     }
   }],
 });

@@ -1,13 +1,6 @@
 const router = require("express").Router();
-const plaidRoutes = require("./plaid");
-const savingsRoutes = require("./savings");
-const shiftsRoutes = require("./savings");
-const userRoutes = require("./savings");
+const userRoutes = require("./userRoutes");
 
-// Book routes
-router.use("/plaid", plaidRoutes);
-router.use("/savings", savingsRoutes);
-router.use("/shifts", shiftsRoutes);
-router.use("/user", userRoutes);
+router.use("/", userRoutes);
 
 module.exports = router;
