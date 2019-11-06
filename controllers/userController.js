@@ -22,23 +22,35 @@ module.exports = {
         .findOneAndUpdate({ _user: req.params.user }, req.body)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
-
-        
     },
 
 
-
     findShiftById:function(req,res){
-
+        db.User
+            .find({_user: req.params.user})
+            .then(dbModel => {
+                let shifts = dbModel.shifts
+                for(let i = 0; i < shifts.length; i++){
+                    if(shifts[i].id === req.params.id){
+                        res.json(shifts[i]);
+                    }
+                }
+            })
     },
 
 
     removeShift:function(req,res){
         db.User
-            .find(req.params.username === db.User.username)
-        TODO:
-
-    },
+        .findOneAndUpdate({_user: req.params.user})//code to find body
+        .then(dbModel => {
+            let shifts = dbModel.shifts
+            for(let i = 0; i < shifts.length; i++){
+                if(shifts[i].id === req.params.id){
+                    res.json(shifts[i]);
+                }
+            }
+        })
+},
 
 
     findAllSavingsGoals:function(req,res){
@@ -57,28 +69,28 @@ module.exports = {
     },
 
 
-    postNewSavingGoal:function(req,res){
-        db.User
-            .find(req.params.username === db.User.username)
-        TODO:
+    // postNewSavingGoal:function(req,res){
+    //     db.User
+    //         .find(req.params.username === db.User.username)
+    //     TODO:
 
-    },
-
-
-    findSavingGoalById:function(req,res){
-        db.User
-            .find(req.params.username === db.User.username)
-        TODO:
-
-    },
+    // },
 
 
-    removeSavingGoal:function(req,res){
-        db.User
-            .find(req.params.username === db.User.username)
-        TODO:
+    // findSavingGoalById:function(req,res){
+    //     db.User
+    //         .find(req.params.username === db.User.username)
+    //     TODO:
 
-    }
+    // },
+
+
+    // removeSavingGoal:function(req,res){
+    //     db.User
+    //         .find(req.params.username === db.User.username)
+    //     TODO:
+
+    // }
 
 
 
