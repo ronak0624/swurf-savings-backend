@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../models/User");
 
 module.exports = {
     findAllShifts:function(req,res){
