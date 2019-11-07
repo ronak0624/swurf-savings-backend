@@ -7,7 +7,7 @@ router.route("/:username/shifts")
     .delete(shiftsController.remove)
 
 router.route("/:username/shift/:id")
-    .get(shiftsController.findById(params.id))
-    .delete(shiftsController.remove(params.id))
+    .get(shiftsController.findById(id))
+    .delete(shiftsController.remove(id))
 
 module.exports = router;
