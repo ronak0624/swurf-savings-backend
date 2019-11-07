@@ -2,26 +2,34 @@ const db = require("../models/User");
 
 module.exports = {
     findAllShifts:function(req,res){
-        console.log(req.params.username)
         db.User
-            .find(req.params.username === db.User.username)
-            .then(data => {
-                let result = data.shifts.filter(shift => {
-                    if(!shift.isDeleted){
-                        return shift
-                    }
+        .find(req.params.username === db.User.username)
+        .then(data => {
+            let result = data.shifts.filter(shift => {
+                if(!shift.isDeleted){
+                return shift;
+                }
             })
-            res.json(result)
+            res.json(result);
         })
         .catch(err => res.status(422).json(err));
     },
 
 
     postNewShift:function(req,res){
+        let update;
         db.User
-        .findOneAndUpdate({ _user: req.params.user }, req.body)
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).json(err));
+        .find(req.params.username === db.User.username)
+        .then(data => {
+            update = data;
+            update.shifts.push(req.body);
+        })
+        .catch(err => res.status(422).json(err)); 
+
+        db.User
+        .findOneAndUpdate({ username: req.params.username }, update)
+        .then(data => res.json(data))
+        .catch(err => res.status(422).json(err)); 
     },
 
 
