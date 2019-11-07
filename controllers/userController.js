@@ -1,80 +1,88 @@
-const db = require("../models/User");
+const db = require("../models");
 
 module.exports = {
     findAllShifts:function(req,res){
         db.User
-        .find(req.params.username === db.User.username)
-        .then(data => {
-            let result = data.shifts.filter(shift => {
-                if(!shift.isDeleted){
-                return shift;
+        .find({ username: req.params.username })
+        .then(userData => {
+            let allShifts = [];
+            for (let i = 0; i < userData[0].shifts.length; i++){
+                if (!userData[0].shifts[i].isDelete){
+                    allShifts.push(userData[0].shifts[i])
                 }
-            })
-            res.json(result);
+            }
+            res.json(allShifts);
         })
         .catch(err => res.status(422).json(err));
     },
 
 
     postNewShift:function(req,res){
-        let update;
+        let updatedUserData;
+        let newShiftData = req.body;
+
         db.User
         .find(req.params.username === db.User.username)
-        .then(data => {
-            update = data;
-            update.shifts.push(req.body);
+        .then(userData => {
+            updatedUserData = userData;
+            newShiftData.id = userData.shifts.length;
+            updatedUserData.shifts.push(newShiftData);
+        })
+        .then(() => {
+            db.User
+            .findOneAndUpdate({ username: req.params.username }, updatedUserData)
+            .then(data => res.json(data))
+            .catch(err => res.status(422).json(err));
         })
         .catch(err => res.status(422).json(err)); 
-
-        db.User
-        .findOneAndUpdate({ username: req.params.username }, update)
-        .then(data => res.json(data))
-        .catch(err => res.status(422).json(err)); 
     },
 
 
-    findShiftById:function(req,res){
-        db.User
-            .find({_user: req.params.user})
-            .then(dbModel => {
-                let shifts = dbModel.shifts
-                for(let i = 0; i < shifts.length; i++){
-                    if(shifts[i].id === req.params.id){
-                        res.json(shifts[i]);
-                    }
-                }
-            })
-    },
+//     findShiftById:function(req,res){
+//         db.User
+//         .find(req.params.username === db.User.username)
+//         .then(data => {
+//             let targetShift;
+//             for (let i = 0; i < data.shifts.length; i++){
+//                 if (data.shifts[i].id === req.params.id){
+//                     targetShift = data.shift[i];       
+//                     break;
+//                 }
+//             }
+//             res.json(targetShift);
+//         })
+//         .catch(err => res.status(422).json(err));
+//     },
 
 
-    removeShift:function(req,res){
-        db.User
-        .findOneAndUpdate({_user: req.params.user})//code to find body
-        .then(dbModel => {
-            let shifts = dbModel.shifts
-            for(let i = 0; i < shifts.length; i++){
-                if(shifts[i].id === req.params.id){
-                    res.json(shifts[i]);
-                }
-            }
-        })
-},
+//     removeShift:function(req,res){
+//         db.User
+//         .findOneAndUpdate({_user: req.params.user})//code to find body
+//         .then(dbModel => {
+//             let shifts = dbModel.shifts
+//             for(let i = 0; i < shifts.length; i++){
+//                 if(shifts[i].id === req.params.id){
+//                     res.json(shifts[i]);
+//                 }
+//             }
+//         })
+// },
 
 
-    findAllSavingsGoals:function(req,res){
-        db.User
-            .find(req.params.username === db.User.username)
-            .then(data => {
-                let result = data.savingGoals.filter(savingGoal => {
-                    if(!savingGoal.isDeleted && !savingGoal.isAchieved){
-                        return shift
-                    }
-            })
-            res.json(result)
-        })
-        .catch(err => res.status(422).json(err));
+//     findAllSavingsGoals:function(req,res){
+//         db.User
+//             .find(req.params.username === db.User.username)
+//             .then(data => {
+//                 let result = data.savingGoals.filter(savingGoal => {
+//                     if(!savingGoal.isDeleted && !savingGoal.isAchieved){
+//                         return shift
+//                     }
+//             })
+//             res.json(result)
+//         })
+//         .catch(err => res.status(422).json(err));
 
-    },
+//     },
 
 
     // postNewSavingGoal:function(req,res){
