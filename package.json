@@ -20,7 +20,8 @@
   "devDependencies": {},
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "seed": "node scripts/seedDB.js"
   },
   "repository": {
     "type": "git",

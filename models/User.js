@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const userSchema = new Schema({
 
   username: {
     type: String,
@@ -24,12 +24,8 @@ const UserSchema = new Schema({
   },
 
   shifts:[{
-    company: {
-      type: String,
-      required: true
-    },
     income: {
-      type: Double,
+      type: Number,
       required: true
     },
     start_time: {
@@ -57,11 +53,11 @@ const UserSchema = new Schema({
       required: true
     },
     price: {
-      type: Double,
+      type: Number,
       required: true
     },
     price_remaining:{
-      type: Double,
+      type: Number,
       required: true
     },
     priority: {
@@ -83,4 +79,5 @@ const UserSchema = new Schema({
   }],
 });
 
-module.exports = User = mongoose.model("users", UserSchema);
+const User = mongoose.model("User", userSchema);
+module.exports = User;

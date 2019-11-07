@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const shiftsController = require("../../controllers/shiftsController");
+const shiftsController = require("../../controllers/shiftsControllers");
 
 router.route("/:username/shifts")
     .get(shiftsController.findAll)
@@ -7,7 +7,7 @@ router.route("/:username/shifts")
     .delete(shiftsController.remove)
 
 router.route("/:username/shift/:id")
-    .get(shiftsController.findById(id))
-    .delete(shiftsController.remove(id))
+    .get(shiftsController.findById(params.id))
+    .delete(shiftsController.remove(params.id))
 
 module.exports = router;
