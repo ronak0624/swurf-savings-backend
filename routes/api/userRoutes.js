@@ -7,8 +7,8 @@ router.route("/shifts/:username")
     .get(userController.findAllShifts)
     // .post(userController.postNewShift)
 
-// router.route("/shifts/:username/:id")
-//     .get(userController.findShiftById)
+router.route("/shifts/:username/:id")
+    .get(userController.findShiftById)
 //     .delete(userController.removeShift)
 
 
