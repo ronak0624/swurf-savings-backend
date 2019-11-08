@@ -58,7 +58,7 @@ module.exports = {
         .then(userData => {
 
             // Find the target shift;
-            let targetShift ;
+            let targetShift;
             for (let i = 0; i < userData.shifts.length; i++){
                 if (req.params.id === userData.shifts[i].id.toString()){
                     targetShift = userData.shifts[i];
@@ -110,12 +110,21 @@ module.exports = {
     // },
 
 
-    // findSavingGoalById:function(req,res){
-    //     db.User
-    //         .find(req.params.username === db.User.username)
-    //     TODO:
+    findSavingGoalById:function(req,res){
+        db.User
+        .findOne({ username: req.params.username })
+        .then(userData => {
 
-    // },
+            // Find the target savingGoal;
+            let targetSavingGoal;
+            for (let i = 0; i < userData.savingGoals.length; i++){
+                if (req.params.id === userData.savingGoals[i].id.toString()){
+                    targetSavingGoal = userData.savingGoals[i];
+                }
+            }
+            res.json(targetSavingGoal);
+        })
+    },
 
 
     // removeSavingGoal:function(req,res){

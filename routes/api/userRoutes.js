@@ -17,8 +17,8 @@ router.route("/:username/savingGoals")
     .get(userController.findAllSavingsGoals)
 //     .post(userController.postNewSavingGoal)
 
-// router.route("/:username/savingGoal/:id")
-//     .get(userController.findSavingGoalById)
+router.route("/:username/savingGoal/:id")
+    .get(userController.findSavingGoalById)
 //     .delete(userController.removeSavingGoal)
 
 module.exports = router;
