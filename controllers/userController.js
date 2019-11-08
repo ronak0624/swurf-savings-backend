@@ -3,12 +3,15 @@ const db = require("../models");
 module.exports = {
     findAllShifts:function(req,res){
         db.User
-        .find({ username: req.params.username })
+        //Find the user that match the name;
+        .findOne({ username: req.params.username })
         .then(userData => {
+
+            //Remove the shifts which are deleted by user;
             let allShifts = [];
-            for (let i = 0; i < userData[0].shifts.length; i++){
-                if (!userData[0].shifts[i].isDelete){
-                    allShifts.push(userData[0].shifts[i])
+            for (let i = 0; i < userData.shifts.length; i++){
+                if (!userData.shifts[i].isDelete){
+                    allShifts.push(userData.shifts[i])
                 }
             }
             res.json(allShifts);
@@ -17,42 +20,53 @@ module.exports = {
     },
 
 
-    postNewShift:function(req,res){
-        let updatedUserData;
-        let newShiftData = req.body;
+    // postNewShift:function(req,res){
+    //     let updatedUserShiftsData;
+    //     let newShiftData = req.body;
+    //     db.User
+    //     //Find the user that match the name;
+    //     .findOne({ username: req.params.username })
+    //     .then(userData => {
+    //         //Setting new shift data;
+    //         newShiftData.id = userData.shifts.length;
+    //         newShiftData.isDelete = false;
+            
+    //         //Push new shift to updated shifts array(not in the database yet);
+    //         updatedUserShiftsData = userData.shifts;
+    //         updatedUserShiftsData.push(userData)
 
+    //         let allShifts = [];
+    //         for (let i = 0; i < updatedUserShiftsData.length; i++){
+    //             if (!updatedUserShiftsData[i].isDelete){
+    //                 allShifts.push(updatedUserShiftsData[i])
+    //             }
+    //         }
+    //         console.log("/////////////" + updatedUserShiftsData)
+    //         res.json(allShifts);
+    //         db.User
+    //         .findOneAndUpdate({ username: req.params.username }, { shifts : updatedUserShiftsData })
+    //         .then(console.log("/////////////" + updatedUserShiftsData))
+    //         .catch(err => res.status(422).json(err));
+    //     })
+    //     .catch(err => res.status(422).json(err)); 
+    // },
+
+
+    findShiftById:function(req,res){
         db.User
-        .find(req.params.username === db.User.username)
+        .findOne({ username: req.params.username })
         .then(userData => {
-            updatedUserData = userData;
-            newShiftData.id = userData.shifts.length;
-            updatedUserData.shifts.push(newShiftData);
+
+            // Find the target shift;
+            let targetShift ;
+            for (let i = 0; i < userData.shifts.length; i++){
+                if (req.params.id === userData.shifts[i].id.toString()){
+                    targetShift = userData.shifts[i];
+                }
+            }
+            res.json(targetShift);
         })
-        .then(() => {
-            db.User
-            .findOneAndUpdate({ username: req.params.username }, updatedUserData)
-            .then(data => res.json(data))
-            .catch(err => res.status(422).json(err));
-        })
-        .catch(err => res.status(422).json(err)); 
     },
-
-
-//     findShiftById:function(req,res){
-//         db.User
-//         .find(req.params.username === db.User.username)
-//         .then(data => {
-//             let targetShift;
-//             for (let i = 0; i < data.shifts.length; i++){
-//                 if (data.shifts[i].id === req.params.id){
-//                     targetShift = data.shift[i];       
-//                     break;
-//                 }
-//             }
-//             res.json(targetShift);
-//         })
-//         .catch(err => res.status(422).json(err));
-//     },
 
 
 //     removeShift:function(req,res){
