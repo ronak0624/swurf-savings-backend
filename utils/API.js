@@ -5,53 +5,65 @@ const URL = "localhost:5000";
 module.export = {
 
   //Get all shifts of certain user:
-  getShifts: function(username) {
-    return axios.get("/api/:" + username + "/shifts");
+  findAllShifts: function(username) {
+    return axios.get(URL + "/api/:" + username + "/allShifts");
   },
 
+  //Get all valid shifts of certain user:
+  findAllValidShifts: function(username) {
+    return axios.get(URL + "/api/:" + username + "/shifts");
+  },
+  
+  //Submit a new shift of certain user:
+  postNewShift: function(username,shiftsData){
+    return axios.post(URL + "/api/:" + username + "/shifts",shiftsData);
+  },
 
+  //Remove all shifts of certain user
+  removeAllShifts: function(username){
+    return axios.delete(URL + "/api/:" + username + "/shifts");
+  },
+  
   //Get certain shift of certain user:
-  getShift: function(username,shiftId){
-    return axios.get("/api/:" + username + "/shift/" + shiftId);
+  findShiftbyId: function(username,shiftId){
+    return axios.get(URL + "/api/:" + username + "/shift/" + shiftId);
   },
-
-
-  //Submit a new shift certain user:
-  postShift: function(username,shiftsData){
-    // TODO: Change the savingGoals' remaining price
-    return axios.post("/api/:" + username + "/shifts",shiftsData);
-  },
-
 
   //Delete certain shift from certain user:
-  deleteShift: function(username,shiftsId){
-    // TODO: Change the savingGoals' remaining price
-    return axios.delete("/api/:" + username + "/shift/"+shiftsId);
+  deleteShiftById: function(username,shiftsId){
+    return axios.delete(URL + "/api/:" + username + "/shift/"+shiftsId);
   },
-
 
   //Get all saving goals of certain user:
-  getSavingGoals: function(username) {
-    return axios.get("/api/:" + username + "/savings");
+  findAllSavingsGoals: function(username) {
+    return axios.get(URL + "/api/:" + username + "/allSavingGoals");
   },
 
-
-  //Get certain saving goal of certain user:
-  getSavingGoal: function(username,savingGoalId) {
-    return axios.get("/api/:" + username + "/saving/" + savingGoalId);
+  //Get all valid saving goals of certain user:
+  findAllValidSavingsGoals: function(username) {
+    return axios.get(URL + "/api/:" + username + "/savingGoals");
   },
-
 
   //Add a new saving goal of certain user:
-  postSavingGoal: function(username,savingData) {
-    return axios.post("/api/:" + username + "/savings", savingData);
+  postNewSavingGoal: function(username,savingData) {
+    return axios.post(URL + "/api/:" + username + "/savingGoals", savingData);
   },
 
-
-  //Delete certain saving goal from certain user:
-  deleteSavingGoal: function(username,shiftsId){
-    return axios.delete("/api/:" + username + "/saving/"+shiftsId);
+  //Delete all savings goals of certain user:
+  removeAllSavingGoals: function(username){
+    return axios.delete(URL + "/api/:" + username + "/savingGoals/");
   },
+
+  //Get certain saving goal of certain user:
+  findSavingGoalById: function(username,savingGoalId) {
+    return axios.get(URL + "/api/:" + username + "/savingGoals/" + savingGoalId);
+  },
+
+  //Delete certain saving goal of certain user:
+  deleteSavingGoalById: function(username,shiftsId){
+    return axios.delete(URL + "/api/:" + username + "/savingGoals/" + savingGoalId);
+  },
+
   //Calculating average income
   updateAverageShiftIncome: function(username){
     let totalIncome = 0;
