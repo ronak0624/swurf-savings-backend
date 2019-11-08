@@ -18,70 +18,70 @@ const userSeed = {
             income: 55.45,
             start_time: new Date("1995-10-29T03:24:00"),
             end_time: new Date("1995-10-29T08:24:00"),
-            isDelete:false 
+            isDeleted:false 
         },
         {
             id: 1,
             income: 65.45,
             start_time: new Date("1995-10-29T10:24:00"),
             end_time: new Date("1995-10-29T12:24:00"),
-            isDelete:false 
+            isDeleted:false 
         },
         {
             id: 2,
             income: 25.45,
             start_time: new Date("1995-10-29T10:24:00"),
             end_time: new Date("1995-10-29T21:24:00"),
-            isDelete:false 
+            isDeleted:false 
         },
         {
             id: 3,
             income: 85.45,
             start_time: new Date("1995-10-29T10:24:00"),
             end_time: new Date("1995-10-29T16:24:00"),
-            isDelete:false 
+            isDeleted:false 
         },
         {
             id: 4,
             income: 85.45,
             start_time: new Date("1995-10-29T06:24:00"),
             end_time: new Date("1995-10-29T08:14:00"),
-            isDelete:false 
+            isDeleted:false 
         },
         {
             id: 5,
             income: 45.45,
             start_time: new Date("1995-10-29T03:24:00"),
             end_time: new Date("1995-10-29T08:19:00"),
-            isDelete:false 
+            isDeleted:false 
         },
         {
             id: 6,
             income: 95.45,
             start_time: new Date("1995-10-29T03:24:00"),
             end_time: new Date("1995-10-29T08:11:00"),
-            isDelete:false 
+            isDeleted:false 
         },
         {
             id: 7,
             income: 15.45,
             start_time: new Date("1995-10-29T012:24:00"),
             end_time: new Date("1995-10-29T16:9:00"),
-            isDelete:false 
+            isDeleted:false 
         },
         {
             id: 8,
             income: 105.45,
             start_time: new Date("1995-10-29T03:24:00"),
             end_time: new Date("1995-10-29T08:24:00"),
-            isDelete:false 
+            isDeleted:false 
         },
         {
             id: 9,
             income: 155.45,
             start_time: new Date("1995-10-29T03:24:00"),
             end_time: new Date("1995-10-29T12:24:00"),
-            isDelete:false 
+            isDeleted:false 
         },
 
     ],
@@ -93,7 +93,7 @@ const userSeed = {
             price: 400.65,
             price_remaining: 124.28,
             priority: "1 (I need)",
-            isDelete:false,
+            isDeleted:false,
             isAchieved:false
         }, 
         {
@@ -102,7 +102,7 @@ const userSeed = {
             price: 150.65,
             price_remaining: 50,
             priority: "2 (I kinda need)",
-            isDelete:false,
+            isDeleted:false,
             isAchieved:false
         }, 
         {
@@ -111,7 +111,7 @@ const userSeed = {
             price: 135.99,
             price_remaining: 10,
             priority: "3 (I want)",
-            isDelete:false,
+            isDeleted:false,
             isAchieved:false
         }, 
         {
@@ -120,7 +120,7 @@ const userSeed = {
             price: 400.65,
             price_remaining: 124.28,
             priority: "1 (I need)",
-            isDelete:false,
+            isDeleted:false,
             isAchieved:false
         }, 
         {
@@ -129,7 +129,7 @@ const userSeed = {
             price: 150.65,
             price_remaining: 50,
             priority: "2 (I kinda need)",
-            isDelete:false,
+            isDeleted:false,
             isAchieved:false
         }, 
         {
@@ -138,7 +138,7 @@ const userSeed = {
             price: 135.99,
             price_remaining: 10,
             priority: "3 (I want)",
-            isDelete:false,
+            isDeleted:false,
             isAchieved:false
         }, 
     ]
