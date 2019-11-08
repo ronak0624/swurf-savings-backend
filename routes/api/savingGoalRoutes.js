@@ -2,12 +2,17 @@ const router = require("express").Router();
 const savingGoalController = require("../../controllers/savingGoalController");
 
 //Router for savingGoals:
+router.route("/:username/allSavingGoals")
+    .get(savingGoalController.findAllSavingGoals)
+
 router.route("/:username/savingGoals")
-    .get(savingGoalController.findAllSavingsGoals)
+    .get(savingGoalController.findAllValidSavingGoals)
+    .post(savingGoalController.postNewSavingGoal)
+    .delete(savingGoalController.removeAllSavingGoals)
     // .put(savingGoalController.updateSavingGoals)
 
 router.route("/:username/savingGoal/:id")
     .get(savingGoalController.findSavingGoalById)
-    // .put(savingGoalController.updateSavingGoal)
+    .delete(savingGoalController.deleteSavingGoalById)
 
 module.exports = router;
