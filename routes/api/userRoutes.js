@@ -1,11 +1,11 @@
-// const router = require("express").Router();
-// const userController = require("../../controllers/userController");
+const router = require("express").Router();
+const userController = require("../../controllers/userController");
 
 
-// //Routes for shifts:
-// router.route("/shifts/:username/")
-//     .get(userController.findAllShifts)
-//     .post(userController.postNewShift)
+//Routes for shifts:
+router.route("/shifts/:username/")
+    .get(userController.findAllShifts)
+    // .post(userController.postNewShift)
 
 // router.route("/shifts/:username/:id")
 //     .get(userController.findShiftById)
@@ -21,4 +21,4 @@
 //     .get(userController.findSavingGoalById)
 //     .delete(userController.removeSavingGoal)
 
-// module.exports = router;
+module.exports = router;
