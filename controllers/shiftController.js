@@ -1,19 +1,27 @@
 const db = require("../models");
 
 module.exports = {
-
     //For /api/:username/shifts
     findAllShifts:function(req,res){
         db.User
         //Find the user that match the name;
         .findOne({ username: req.params.username })
+        .then(userData => res.json(userData.shifts))
+        .catch(err => res.status(422).json(err));
+    },
+
+    findAllValidShifts:function(req,res){
+        db.User
+        //Find the user that match the name;
+        .findOne({ username: req.params.username })
         .then(userData => {
+
             // Remove the savingGoals which are deleted or achieved;
             let allShifts = userData.shifts;
             let allValidShifts = [];
             for (let i = 0; i < allShifts.length; i++ ){
                 if(!allShifts[i].isDeleted){
-                    allValidShifts.push(userData.shifts[i])
+                    allValidShifts.push(allShifts[i])
                 };
             }
             res.json(allValidShifts);
@@ -23,8 +31,8 @@ module.exports = {
 
     postNewShift:function(req,res){
         // let updatedUserShiftsData;;
-        let newShiftData = req.body.toString();
-
+        let newShiftData = req.body;
+        console.log(newShiftData)
         db.User
         //Find the user that match the name;
         .findOne({ username: req.params.username })
@@ -38,17 +46,10 @@ module.exports = {
             let allShifts = userData.shifts;
             allShifts.push(newShift);
 
-            //Remove the shifts which are deleted by user;
-            let allValidShifts = [];
-            for (let i = 0; i < allShifts.length; i++){
-                if (!allShifts[i].isDeleted){
-                    allValidShifts.push(allShifts[i])
-                }
-            }
             // res.json(newShiftData);
             db.User
-            .findOneAndUpdate({ username: req.params.username }, { shifts : allValidShifts })
-            .then(res.json(allValidShifts))
+            .findOneAndUpdate({ username: req.params.username }, { $set : { shifts : allShifts }})
+            .then(res.json(allShifts))
             .catch(err => res.status(422).json(err));
         })
         .catch(err => res.status(422).json(err)); 
@@ -57,9 +58,19 @@ module.exports = {
     removeAllShifts:function(req,res){
         db.User
         //Find the user that match the name;
-        .findOneAndUpdate({ username: req.params.username },{ $set : { shifts : [] }})
-        .then(userData => res.json(userData.shifts))
-        .catch(err => res.status(422).json(err))
+        .findOne({ username: req.params.username })
+        .then(userData => {
+            let allShifts = userData.shifts;
+            for (let i = 0; i < allShifts.length; i++){
+                allShifts[i].isDeleted = true;
+            }
+            res.json(allShifts);
+            db.User
+            .findOneAndUpdate({ username: req.params.username }, { $set : {shifts : allShifts}})
+            .then()
+            .catch(err => res.status(422).json(err));
+        })
+        .catch(err => res.status(422).json(err)); 
     },
 
     //For /api/:username/shift/:id
@@ -67,7 +78,6 @@ module.exports = {
         db.User
         .findOne({ username: req.params.username })
         .then(userData => {
-
             // Find the target shift;
             let targetShift;
             for (let i = 0; i < userData.shifts.length; i++){
@@ -80,7 +90,7 @@ module.exports = {
         })
     },
 
-    removeShiftById:function(req,res){
+    deleteShiftById:function(req,res){
         db.User
         //Find the user that match the name;
         .findOne({ username: req.params.username })
@@ -92,16 +102,16 @@ module.exports = {
                     break;
                 }
             }
-            res.json(allShifts);
+
             let allValidShifts = [];
             for (let i = 0; i < allShifts.length; i++ ){
                 if(!allShifts[i].isDeleted){
                     allValidShifts.push(allShifts[i])
                 };
             }
-            res.json([]);
+            res.json(allValidShifts);
             db.User
-            .findOneAndUpdate({ username: req.params.username }, { $set : {shifts : allValidShifts}})
+            .findOneAndUpdate({ username: req.params.username }, { $set : {shifts : allShifts}})
             .then()
             .catch(err => res.status(422).json(err));
         })
