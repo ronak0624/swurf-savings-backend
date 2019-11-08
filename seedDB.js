@@ -145,6 +145,20 @@ const userSeed = {
 
 }
 
+// db.User.collection.remove({},function(err){
+//     if (err) throw (err);
+//     console.log('Users removed!')
+// })
+
+db.User.collection.remove()
+    .then(() => {
+        console.log('User removed');
+    })
+    .catch(err => {
+        console.error(err);
+        process.exit(1);
+    });
+
 db.User.collection.save(userSeed)
     .then(data => {
         console.log(data.result.n + " records inserted!");
