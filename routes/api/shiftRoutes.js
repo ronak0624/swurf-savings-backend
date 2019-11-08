@@ -2,13 +2,16 @@ const router = require("express").Router();
 const shiftController = require("../../controllers/shiftController");
 
 //Routes for shifts:
-router.route("/:username/shifts")
+router.route("/:username/allShifts")
     .get(shiftController.findAllShifts)
-    .put(shiftController.removeAllShifts)
-    // .delete(shiftController.removeAllShifts)
+
+router.route("/:username/shifts")
+    .get(shiftController.findAllValidShifts)
+    .post(shiftController.postNewShift)
+    .delete(shiftController.removeAllShifts)
 
 router.route("/:username/shift/:id")
     .get(shiftController.findShiftById)
-    // .put(shiftController.removeShiftById)
+    .delete(shiftController.deleteShiftById)
 
 module.exports = router;

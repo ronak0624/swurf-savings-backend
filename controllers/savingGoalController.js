@@ -9,10 +9,11 @@ module.exports = {
         .then(userData => {
 
             //Remove the savingGoals which are deleted or achieved;
+            let allSavingGoals = userData.savingGoals;
             let allValidSavingGoals = [];
-            for (let i = 0; i < userData.savingGoals.length; i++){
-                if (!userData.savingGoals[i].isDeleted || !userData.savingGoals[i].isAchieved ){
-                    allValidSavingGoals.push(userData.savingGoals[i])
+            for (let i = 0; i < allSavingGoals.length; i++){
+                if (!allSavingGoals[i].isDeleted || !userData.savingGoals[i].isAchieved ){
+                    allValidSavingGoals.push(allSavingGoals[i])
                 }
             }
             res.json(allValidSavingGoals);
