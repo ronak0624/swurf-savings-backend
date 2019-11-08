@@ -10,6 +10,7 @@ router.route("/:username/shifts")
     .post(shiftController.postNewShift)
     .delete(shiftController.removeAllShifts)
 
+//Routes for shift:
 router.route("/:username/shift/:id")
     .get(shiftController.findShiftById)
     .delete(shiftController.deleteShiftById)
