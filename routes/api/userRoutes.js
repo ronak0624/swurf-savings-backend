@@ -6,16 +6,16 @@ const userController = require("../../controllers/userController");
 router.route("/:username/shifts")
     .get(userController.findAllShifts)
     // .post(userController.postNewShift)
+    // .delete(userController.removeAllShifts)
 
 router.route("/:username/shift/:id")
     .get(userController.findShiftById)
 //     .delete(userController.removeShift)
 
-
 // //Router for savingGoals:
 router.route("/:username/savingGoals")
     .get(userController.findAllSavingsGoals)
-//     .post(userController.postNewSavingGoal)
+    .post(userController.postNewSavingGoal)
 
 router.route("/:username/savingGoal/:id")
     .get(userController.findSavingGoalById)
