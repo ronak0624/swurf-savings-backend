@@ -3,18 +3,18 @@ const userController = require("../../controllers/userController");
 
 
 //Routes for shifts:
-router.route("/shifts/:username")
+router.route("/:username/shifts")
     .get(userController.findAllShifts)
     // .post(userController.postNewShift)
 
-router.route("/shifts/:username/:id")
+router.route("/:username/shift/:id")
     .get(userController.findShiftById)
 //     .delete(userController.removeShift)
 
 
 // //Router for savingGoals:
-// router.route("/:username/savingGoals")
-//     .get(userController.findAllSavingGoals)
+router.route("/:username/savingGoals")
+    .get(userController.findAllSavingsGoals)
 //     .post(userController.postNewSavingGoal)
 
 // router.route("/:username/savingGoal/:id")

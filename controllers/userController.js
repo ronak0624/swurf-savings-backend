@@ -83,20 +83,23 @@ module.exports = {
 // },
 
 
-//     findAllSavingsGoals:function(req,res){
-//         db.User
-//             .find(req.params.username === db.User.username)
-//             .then(data => {
-//                 let result = data.savingGoals.filter(savingGoal => {
-//                     if(!savingGoal.isDeleted && !savingGoal.isAchieved){
-//                         return shift
-//                     }
-//             })
-//             res.json(result)
-//         })
-//         .catch(err => res.status(422).json(err));
+    findAllSavingsGoals:function(req,res){
+        db.User
+        //Find the user that match the name;
+        .findOne({ username: req.params.username })
+        .then(userData => {
 
-//     },
+            //Remove the shifts which are deleted by user;
+            let allSavingGoals = [];
+            for (let i = 0; i < userData.savingGoals.length; i++){
+                if (!userData.savingGoals[i].isDelete || !userData.savingGoals[i].isAchieved ){
+                    allSavingGoals.push(userData.savingGoals[i])
+                }
+            }
+            res.json(allSavingGoals);
+        })
+        .catch(err => res.status(422).json(err));
+    },
 
 
     // postNewSavingGoal:function(req,res){
