@@ -90,8 +90,8 @@ const userSeed = {
         {
             id: 0,
             title: "New Skis",
-            price: 400.65,
-            price_remaining: 124.28,
+            price: 400,
+            price_remaining: 400,
             priority: "1 (I need)",
             isDeleted:false,
             isAchieved:false
@@ -99,17 +99,17 @@ const userSeed = {
         {
             id: 1,
             title: "Airpods",
-            price: 150.65,
-            price_remaining: 50,
+            price: 100,
+            price_remaining: 100,
             priority: "2 (I kinda need)",
             isDeleted:false,
             isAchieved:false
         }, 
         {
-            id: 2,
+            id: 2,  
             title: "New Speakers",
-            price: 135.99,
-            price_remaining: 10,
+            price: 50,
+            price_remaining: 50,
             priority: "3 (I want)",
             isDeleted:false,
             isAchieved:false

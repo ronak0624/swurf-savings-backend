@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const savingGoalController = require("../controllers/savingGoalController");
+const savingGoalController = require("../../controllers/savingGoalController");
 
 //Router for savingGoals:
 router.route("/:username/allSavingGoals")
