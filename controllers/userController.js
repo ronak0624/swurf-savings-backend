@@ -55,24 +55,6 @@ module.exports = {
         .catch(err => res.status(422).json(err)); 
     },
 
-<<<<<<< HEAD
-
-//     findShiftById:function(req,res){
-//         db.User
-//             .find({_user: req.params.user})
-//             .then(dbModel => {
-//                 let shifts = dbModel.shifts
-//                 for(let i = 0; i < shifts.length; i++){
-//                     if(shifts[i].id === req.params.id){
-//                         res.json(shifts[i]);
-//                     }
-//                 }
-//             })
-//     },
-
-
-//     removeShift:function(req,res){
-=======
     findShiftById:function(req,res){
         db.User
         .findOne({ username: req.params.username })
@@ -91,7 +73,6 @@ module.exports = {
     },
 
    // removeShift:function(req,res){
->>>>>>> 66a917ab617d70eaa4f27546d657afd8e7a13d38
 //         db.User
 //         .findOneAndUpdate({_user: req.params.user})//code to find body
 //         .then(dbModel => {
@@ -104,23 +85,6 @@ module.exports = {
 //         })
 // },
 
-<<<<<<< HEAD
-
-//     findAllSavingsGoals:function(req,res){
-//         db.User
-//             .find(req.params.username === db.User.username)
-//             .then(data => {
-//                 let result = data.savingGoals.filter(savingGoal => {
-//                     if(!savingGoal.isDeleted && !savingGoal.isAchieved){
-//                         return shift
-//                     }
-//             })
-//             res.json(result)
-//         })
-//         .catch(err => res.status(422).json(err));
-
-//     },
-=======
     findAllSavingsGoals:function(req,res){
         db.User
         //Find the user that match the name;
@@ -189,7 +153,6 @@ module.exports = {
         })
         .catch(err => res.status(422).json(err));
     },
->>>>>>> 66a917ab617d70eaa4f27546d657afd8e7a13d38
 
     // removeSavingGoal:function(req,res){
     // },
