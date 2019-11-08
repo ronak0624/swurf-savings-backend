@@ -1,6 +1,8 @@
-import axios from "axios";
+const axios = require("axios");
 
-export default {
+const URL = "localhost:5000";
+
+module.export = {
 
   //Get all shifts of certain user:
   getShifts: function(username) {
@@ -50,24 +52,22 @@ export default {
   deleteSavingGoal: function(username,shiftsId){
     return axios.delete("/api/:" + username + "/saving/"+shiftsId);
   },
-
-
   //Calculating average income
-  updateAverageShiftIncome: function(user){
+  updateAverageShiftIncome: function(username){
     let totalIncome = 0;
-    for (let i = 0; i < user.shifts.length; i++){
-      totalIncome += user.shifts[i].income;
-    }
-
     let totalHoursWorked = 0;
 
-    for (let i = 0; i < user.shifts.length; i++){
-        let hours = user.shifts[i].start_time - user.shifts[i].end_time;
+    axios.get(URL + "/api/" + username + "shifts").then(res => {
+      let shiftsArray = res.shifts
+      for (let i = 0; i < shiftsArray.length; i++){
+        totalIncome += shiftsArray[i].income;
+      }
+      for (let i = 0; i < shiftsArray.length; i++){
+        let hours = 3;
         totalHoursWorked += hours;
-    }
-    let totalShifts = totalHoursWorked / 3;
-    let averageShiftIncome = totalIncome / totalShifts;
-    return averageShiftIncome;
+      }
+      return totalIncome / totalHoursWorked;
+    })
   },
 
 
