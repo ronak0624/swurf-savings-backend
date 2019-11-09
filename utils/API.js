@@ -25,7 +25,7 @@ module.export = {
   },
   
   //Get certain shift of certain user:
-  findShiftbyId: function(username,shiftId){
+  findShiftById: function(username,shiftId){
     return axios.get(URL + "/api/:" + username + "/shift/" + shiftId);
   },
 
@@ -35,12 +35,12 @@ module.export = {
   },
 
   //Get all saving goals of certain user:
-  findAllSavingsGoals: function(username) {
+  findAllSavingGoals: function(username) {
     return axios.get(URL + "/api/:" + username + "/allSavingGoals");
   },
 
   //Get all valid saving goals of certain user:
-  findAllValidSavingsGoals: function(username) {
+  findAllValidSavingGoals: function(username) {
     return axios.get(URL + "/api/:" + username + "/savingGoals");
   },
 
@@ -77,8 +77,9 @@ module.export = {
       for (let i = 0; i < shiftsArray.length; i++){
         let hours = 3;
         totalHoursWorked += hours;
+        totalShiftsWorked = totalHoursWorked / 3;
       }
-      return totalIncome / totalHoursWorked;
+      return totalIncome / totalShiftsWorked;
     })
   },
 
