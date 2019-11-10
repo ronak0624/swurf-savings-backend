@@ -4,6 +4,15 @@ const SAVING_GOAL_INCOME_PERCENTAGE = 0.3;
 const PRIORITY_1_PERCENTAGE= 0.5;
 const PRIORITY_2_PERCENTAGE = 0.3;
 const PRIORITY_3_PERCENTAGE = 0.2;
+var getPercentage = function(string){
+    switch (string){
+        case "1 (I need)": proportion = PRIORITY_1_PERCENTAGE; break;
+        case "2 (I kinda need)": proportion = PRIORITY_2_PERCENTAGE; break;
+        case "3 (I want)": proportion = PRIORITY_3_PERCENTAGE; break;
+        default : console.log('WTF')
+    }
+    return proportion;
+}
 
 module.exports = {
     //For /api/:username/shifts
@@ -57,14 +66,7 @@ module.exports = {
             let allSavingGoals = userData.savingGoals;
             for(var i = 0 ; i < allSavingGoals.length; i++ ){
                 if(!allSavingGoals[i].isDeleted && !allSavingGoals[i].isAchieved){
-                    let proportion;
-                    switch (allSavingGoals[i].priority){
-                        case "1 (I need)": proportion = PRIORITY_1_PERCENTAGE; break;
-                        case "2 (I kinda need)": proportion = PRIORITY_2_PERCENTAGE; break;
-                        case "3 (I want)": proportion = PRIORITY_3_PERCENTAGE; break;
-                        default : console.log('WTF')
-                    }
-                    allSavingGoals[i].price_remaining -= newShift.income * SAVING_GOAL_INCOME_PERCENTAGE * proportion;
+                    allSavingGoals[i].price_remaining -= newShift.income * SAVING_GOAL_INCOME_PERCENTAGE * getPercentage(allSavingGoals[i].priority);
                     if (allSavingGoals[i].price_remaining <= 0){
                         allSavingGoals[i].price_remaining = 0 ;
                         allSavingGoals[i].isAchieved = true ;
@@ -145,6 +147,4 @@ module.exports = {
         })
         .catch(err => res.status(422).json(err)); 
     },
-
-
 };
