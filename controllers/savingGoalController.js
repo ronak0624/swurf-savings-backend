@@ -37,6 +37,12 @@ module.exports = {
         //Find the user that match the name;
         .findOne({ username: req.params.username })
         .then(userData => {
+
+
+
+
+
+            
             // Setting new savingGoal data;
             let newSavingGoal = newSavingGoalData;
             newSavingGoal.id = userData.savingGoals.length;
