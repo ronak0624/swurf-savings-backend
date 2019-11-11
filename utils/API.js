@@ -25,7 +25,7 @@ module.export = {
   },
   
   //Get certain shift of certain user:
-  findShiftbyId: function(username,shiftId){
+  findShiftById: function(username,shiftId){
     return axios.get(URL + "/api/:" + username + "/shift/" + shiftId);
   },
 
@@ -35,12 +35,12 @@ module.export = {
   },
 
   //Get all saving goals of certain user:
-  findAllSavingsGoals: function(username) {
+  findAllSavingGoals: function(username) {
     return axios.get(URL + "/api/:" + username + "/allSavingGoals");
   },
 
   //Get all valid saving goals of certain user:
-  findAllValidSavingsGoals: function(username) {
+  findAllValidSavingGoals: function(username) {
     return axios.get(URL + "/api/:" + username + "/savingGoals");
   },
 
@@ -65,39 +65,38 @@ module.export = {
   },
 
   //Calculating average income
-  updateAverageShiftIncome: function(username){
+  getAverageShiftIncome: function(username){
     let totalIncome = 0;
     let totalHoursWorked = 0;
 
-    axios.get(URL + "/api/" + username + "shifts").then(res => {
-      let shiftsArray = res.shifts
+    axios
+    .get(URL + "/api/" + username + "/shifts")
+    .then(res => {
+      let shiftsArray = res.shifts;
       for (let i = 0; i < shiftsArray.length; i++){
         totalIncome += shiftsArray[i].income;
       }
       for (let i = 0; i < shiftsArray.length; i++){
         let hours = 3;
         totalHoursWorked += hours;
+        totalShiftsWorked = totalHoursWorked / 3;
       }
-      return totalIncome / totalHoursWorked;
+      return totalIncome / totalShiftsWorked;
     })
   },
 
-
-  shiftsRemaining: function(user){
-    //TODO:
-    // let totalIncome = 0;
-    // for (let i = 0; i < user.shifts.length; i++){
-    //   totalIncome += user.shifts[i].income;
-    // }
-
-    // let totalHoursWorked = 0;
-
-    // for (let i = 0; i < user.shifts.length; i++){
-    //     let hours = user.shifts[i].start_time - user.shifts[i].end_time;
-    //     totalHoursWorked += hours;
-    // }
-    // let totalShifts = totalHoursWorked / 3;
-    // let averageShiftIncome = totalIncome / totalShifts;
-    // let shiftsRemaining = 
-  }
+  getShiftsRemainingForSavingGoals: function(username){
+    axios
+    .get(URL + "/api/" + username + "/savingGoals")
+    .then(res => {
+      let savingGoalsArray = res.savingGoals;
+      ShiftsRemainingArray = [];
+      AverageShiftIncome = getAverageShiftIncome(username);
+      for (let i = 0; i < savingGoalsArray.length; i++){
+        let shiftsRemaining = savingGoalsArray[i].price_remaining / AverageShiftIncome;
+        ShiftsRemainingArray.push(shiftsRemaining);
+      }
+      return ShiftsRemainingArray;
+    })
+  },
 };
