@@ -91,7 +91,7 @@ module.export = {
     .then(res => {
       let savingGoalsArray = res.savingGoals;
       ShiftsRemainingArray = [];
-      AverageShiftIncome = updateAverageShiftIncome(username);
+      AverageShiftIncome = getAverageShiftIncome(username);
       for (let i = 0; i < savingGoalsArray.length; i++){
         let shiftsRemaining = savingGoalsArray[i].price_remaining / AverageShiftIncome;
         ShiftsRemainingArray.push(shiftsRemaining);
