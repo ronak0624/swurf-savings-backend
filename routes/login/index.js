@@ -12,6 +12,15 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 
+//if logged in will let you in, otherwise will fail
+router.get('/*',function(req,res){
+  if(req.session.user) {
+    res.render('securepage',req.session.user);
+    }else {
+        res.send('Please login to get your information.')
+    }
+})
+
 // @route POST api/users/register
 // @desc Register user
 // @access Public
