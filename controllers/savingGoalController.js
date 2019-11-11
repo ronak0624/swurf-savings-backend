@@ -1,5 +1,18 @@
 const db = require("../models");
 
+const PRIORITY_1_PERCENTAGE= 0.5;
+const PRIORITY_2_PERCENTAGE = 0.3;
+const PRIORITY_3_PERCENTAGE = 0.2;
+var getPercentage = function(string){
+    switch (string){
+        case "1 (I need)": proportion = PRIORITY_1_PERCENTAGE; break;
+        case "2 (I kinda need)": proportion = PRIORITY_2_PERCENTAGE; break;
+        case "3 (I want)": proportion = PRIORITY_3_PERCENTAGE; break;
+        default : console.log('WTF')
+    }
+    return proportion;
+}
+
 module.exports = {
     //For /api/:username/savingGoals
     findAllSavingGoals:function(req,res){
@@ -37,6 +50,25 @@ module.exports = {
         //Find the user that match the name;
         .findOne({ username: req.params.username })
         .then(userData => {
+            //Check validation;
+            let totalPercentage = 0;
+            for (let i = 0; i < userData.savingGoals.length; i++ ){
+                if(!userData.savingGoals[i].isDeleted && !userData.savingGoals[i].isAchieved){
+                    //User can only have 1 Priority savingGoal;
+                    if (userData.savingGoals[i].priority === "1 (I need)" && newSavingGoalData.priority === "1 (I need)"){
+                        //TODO:
+                        res.send("You already have priority 1.")
+                        return;
+                    }
+                    totalPercentage += getPercentage(userData.savingGoals[i].priority)
+                }
+            }
+            if (totalPercentage + getPercentage(newSavingGoalData.priority) > 1){
+                //TODO:
+                res.send("You don't have enough percentage remaining.")
+                return;
+            }
+
             // Setting new savingGoal data;
             let newSavingGoal = newSavingGoalData;
             newSavingGoal.id = userData.savingGoals.length;
@@ -46,11 +78,12 @@ module.exports = {
             //Push new savingGoal to updated savingGoals array(not in the database yet);
             let allSavingGoals = userData.savingGoals;
             allSavingGoals.push(newSavingGoal);
+            res.json(allSavingGoals)
 
             // res.json(newSavingGoalData);
             db.User
             .findOneAndUpdate({ username: req.params.username }, { $set : { savingGoals : allSavingGoals }})
-            .then(res.json(allSavingGoals))
+            .then()
             .catch(err => res.status(422).json(err));
         })
         .catch(err => res.status(422).json(err)); 
@@ -118,6 +151,4 @@ module.exports = {
         })
         .catch(err => res.status(422).json(err)); 
     },
-
-
 };
