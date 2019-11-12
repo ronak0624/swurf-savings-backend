@@ -63,3 +63,5 @@ typings/
 # keys
 routes/api/plaid.js
 config/keys
+routes/api/plaid.js
+config/keys.js
