@@ -5,9 +5,9 @@ const PRIORITY_2_PERCENTAGE = 0.3;
 const PRIORITY_3_PERCENTAGE = 0.2;
 var getPercentage = function(string){
     switch (string){
-        case "1 (I need)": proportion = PRIORITY_1_PERCENTAGE; break;
-        case "2 (I kinda need)": proportion = PRIORITY_2_PERCENTAGE; break;
-        case "3 (I want)": proportion = PRIORITY_3_PERCENTAGE; break;
+        case "1 (I need this as fast as possible)": proportion = PRIORITY_1_PERCENTAGE; break;
+        case "2 (I really want this)": proportion = PRIORITY_2_PERCENTAGE; break;
+        case "3 (I want this but don't need it right away)": proportion = PRIORITY_3_PERCENTAGE; break;
         default : console.log('WTF')
     }
     return proportion;
@@ -63,6 +63,7 @@ module.exports = {
                     totalPercentage += getPercentage(userData.savingGoals[i].priority)
                 }
             }
+            console.log(getPercentage(newSavingGoalData.priority));
             if (totalPercentage + getPercentage(newSavingGoalData.priority) > 1){
                 //TODO:
                 res.send("You don't have enough percentage remaining.")
