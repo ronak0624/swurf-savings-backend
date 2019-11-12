@@ -8,7 +8,7 @@ var getPercentage = function(string){
         case "1 (I need this as fast as possible)": proportion = PRIORITY_1_PERCENTAGE; break;
         case "2 (I really want this)": proportion = PRIORITY_2_PERCENTAGE; break;
         case "3 (I want this but don't need it right away)": proportion = PRIORITY_3_PERCENTAGE; break;
-        default : console.log('WTF')
+        default : null
     }
     return proportion;
 }
@@ -55,7 +55,7 @@ module.exports = {
             for (let i = 0; i < userData.savingGoals.length; i++ ){
                 if(!userData.savingGoals[i].isDeleted && !userData.savingGoals[i].isAchieved){
                     //User can only have 1 Priority savingGoal;
-                    if (userData.savingGoals[i].priority === "1 (I need)" && newSavingGoalData.priority === "1 (I need)"){
+                    if (userData.savingGoals[i].priority === "1 (I need this as fast as possible)" && newSavingGoalData.priority === "1 (I need this as fast as possible)"){
                         //TODO:
                         res.send("You already have priority 1.")
                         return;
@@ -66,7 +66,7 @@ module.exports = {
             console.log(getPercentage(newSavingGoalData.priority));
             if (totalPercentage + getPercentage(newSavingGoalData.priority) > 1){
                 //TODO:
-                res.send("You don't have enough percentage remaining.")
+                res.send("You don't have enough savings portions remaining.")
                 return;
             }
 

@@ -6,10 +6,10 @@ const PRIORITY_2_PERCENTAGE = 0.3;
 const PRIORITY_3_PERCENTAGE = 0.2;
 var getPercentage = function(string){
     switch (string){
-        case "1 (I need)": proportion = PRIORITY_1_PERCENTAGE; break;
-        case "2 (I kinda need)": proportion = PRIORITY_2_PERCENTAGE; break;
-        case "3 (I want)": proportion = PRIORITY_3_PERCENTAGE; break;
-        default : console.log('WTF')
+        case "1 (I need this as fast as possible)": proportion = PRIORITY_1_PERCENTAGE; break;
+        case "2 (I really want this)": proportion = PRIORITY_2_PERCENTAGE; break;
+        case "3 (I want this but don't need it right away)": proportion = PRIORITY_3_PERCENTAGE; break;
+        default : null
     }
     return proportion;
 }
@@ -54,7 +54,7 @@ module.exports = {
             let newShift = newShiftData;
             newShift.id = userData.shifts.length;
             newShift.isDeleted = false;
-            console.log(newShift)
+            console.log(newShift, "this is the newShift object");
 
             //Push new shift to updated shifts array(not in the database yet);
             let allShifts = userData.shifts;
@@ -64,12 +64,18 @@ module.exports = {
             // console.log(allShifts);
             // //Updating the price_remaining for saving goals;
             let allSavingGoals = userData.savingGoals;
+
             for(var i = 0 ; i < allSavingGoals.length; i++ ){
                 if(!allSavingGoals[i].isDeleted && !allSavingGoals[i].isAchieved){
-                    allSavingGoals[i].price_remaining -= newShift.income * SAVING_GOAL_INCOME_PERCENTAGE * getPercentage(allSavingGoals[i].priority);
-                    if (allSavingGoals[i].price_remaining <= 0){
-                        allSavingGoals[i].price_remaining = 0 ;
-                        allSavingGoals[i].isAchieved = true ;
+                    let newPrice = allSavingGoals[i].price_remaining;
+                    if(!newPrice){
+                        allSavingGoals[i].price_remaining = 0;
+                    }
+                    newPrice += newShift.earnings * SAVING_GOAL_INCOME_PERCENTAGE * getPercentage(allSavingGoals[i].priority);
+                    console.log("Value of newPrice", newPrice)
+                    allSavingGoals[i].price_remaining = newPrice;
+                    if (newPrice >= allSavingGoals[i].price){
+                        allSavingGoals[i].isAchieved = true;
                     }
                 }
             }
