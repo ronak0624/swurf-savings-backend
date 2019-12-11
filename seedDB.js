@@ -3,7 +3,7 @@ const db = require("./models");
 
 // This file empties the Users collection and inserts the books below
 
-mongoose.connect("mongodb+srv://ronak:Masaka60@swurf-savings-5guz5.mongodb.net/test?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://ronak:tB68ikCfJWkDbg8g@swurf-savings-5guz5.mongodb.net/test?retryWrites=true&w=majority");
 
 const userSeed = {
 
