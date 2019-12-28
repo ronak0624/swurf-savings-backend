@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-const authentication = require("./routes/login");
+const authentication = require("./routes/authentication");
 const app = express();
 
 // Bodyparser middleware

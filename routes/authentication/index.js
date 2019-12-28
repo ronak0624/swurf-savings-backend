@@ -12,15 +12,6 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 
-//if logged in will let you in, otherwise will fail
-router.get('/*',function(req,res){
-  if(req.session.user) {
-    res.render('securepage',req.session.user);
-    }else {
-        res.send('Please login to get your information.')
-    }
-})
-
 // @route POST api/users/register
 // @desc Register user
 // @access Public
@@ -41,8 +32,7 @@ router.post("/register", (req, res) => {
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
-        password2: req.body.password2
+        password: req.body.password
       });
 
       // Hash password before saving in database
@@ -73,14 +63,14 @@ router.post("/login", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
-  // Find user by username
-  User.findOne({ username }).then(user => {
+  // Find user by email
+  User.findOne({ email }).then(user => {
     // Check if user exists
     if (!user) {
-      return res.status(404).json({ usernamenotfound: "Username not found" });
+      return res.status(404).json({ emailnotfound: "Email not found" });
     }
 
     // Check password
