@@ -49,7 +49,7 @@ const UserSchema = new Schema({
   //   },
   // }],
 
-  savingGoals:{
+  savingsGoals:{
     type: Array,
     require:false
   }
