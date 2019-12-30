@@ -54,58 +54,6 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
-    postNewSavingGoal: function (req, res) {
-        
-        db.User
-            //Find the user that match the name;
-            .findOne({
-                _id: req.body.user_id
-            })
-            .then(userData => {
-                //Check validation;
-                let totalPercentage = 0;
-                // for (let i = 0; i < userData.savingGoals.length; i++ ){
-                //     if(!userData.savingGoals[i].isDeleted && !userData.savingGoals[i].isAchieved){
-                //         //User can only have 1 Priority savingGoal;
-                //         if (userData.savingGoals[i].priority === "1 (I need this as fast as possible)" && newSavingGoalData.priority === "1 (I need this as fast as possible)"){
-                //             //TODO:
-                //             res.send("You already have a priority 1 goal.")
-                //             return;
-                //         }
-                //         totalPercentage += getPercentage(userData.savingGoals[i].priority)
-                //     }
-                // }
-                // if (totalPercentage + getPercentage(newSavingGoalData.priority) > 1){
-                //     //TODO:
-                //     res.send("You don't have enough savings portions remaining.")
-                //     return;
-                // }
-                console.log(userData);
-                // Setting new savingGoal data
-                let newSavingGoal = newSavingGoalData;
-                newSavingGoal.id = userData.savingGoals.length;
-                newSavingGoal.isDeleted = false;
-                newSavingGoal.isAchieved = false;
-
-                //Push new savingGoal to updated savingGoals array(not in the database yet);
-                let allSavingGoals = userData.savingGoals;
-                allSavingGoals.push(newSavingGoal);
-                res.json(allSavingGoals)
-
-                // res.json(newSavingGoalData);
-                db.User
-                    .findOneAndUpdate({
-                        _id: req.body.user_id
-                    }, {
-                        $set: {
-                            savingGoals: allSavingGoals
-                        }
-                    })
-                    .then()
-                    .catch(err => res.status(422).json(err));
-            })
-            .catch(err => res.status(422).json(err));
-    },
     newSavingsGoal: function (req, res) {
 
         // Check validation
@@ -115,39 +63,24 @@ module.exports = {
             return res.status(400).json(errors);
         }
 
+        // Setting new savingGoal data
+        let newSavingsGoal = {
+            title: req.body.title,
+            priority: req.body.priority,
+            cost: req.body.cost,
+            isAchieved: false,
+        };
+
         db.User
             //Find the user that match the name;
-            .findOne({
+            .findOneAndUpdate({
                 _id: req.body.user_id
+            },{ 
+                $push: { savingsGoals: newSavingsGoal }
+            },{
+                new:true
             })
-            .then(userData => {
-                // Setting new savingGoal data
-                let newSavingsGoal = {
-                    title: req.body.title,
-                    priority: req.body.priority,
-                    cost: req.body.cost,
-                    isAchieved: false,
-                    _id: userData.savingsGoals.length
-                };
-                
-                // //Push new savingGoal to updated savingGoals array(not in the database yet);
-                let allSavingsGoals = userData.savingsGoals;
-                allSavingsGoals.push(newSavingsGoal);
-
-                // res.json(newSavingGoalData);
-                db.User
-                    .findOneAndUpdate({
-                        _id: req.body.user_id
-                    }, {
-                        $set: {
-                            savingsGoals: allSavingsGoals
-                        }
-                    }, {
-                        new: true
-                    })
-                    .then(userData => res.status(200).json(userData))
-                    .catch(err => res.status(422).json(err));
-            })
+            .then(userData => res.status(200).json(userData.savingsGoals))
             .catch(err => res.status(422).json(err));
     },
 
