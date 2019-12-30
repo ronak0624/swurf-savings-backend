@@ -43,34 +43,36 @@ module.exports = {
     },
 
     postNewSavingGoal:function(req,res){
-        // let updatedUserSavingGoalsData;;
-        let newSavingGoalData = req.body;
+        let newSavingGoalData = {
+            title: req.body.title,
+            cost: req.body.cost,
+            priority: req.body.priority
+        };
         console.log(newSavingGoalData)
         db.User
         //Find the user that match the name;
-        .findOne({ username: req.params.username })
+        .findOne({ _id: req.body.user_id })
         .then(userData => {
             //Check validation;
             let totalPercentage = 0;
-            for (let i = 0; i < userData.savingGoals.length; i++ ){
-                if(!userData.savingGoals[i].isDeleted && !userData.savingGoals[i].isAchieved){
-                    //User can only have 1 Priority savingGoal;
-                    if (userData.savingGoals[i].priority === "1 (I need this as fast as possible)" && newSavingGoalData.priority === "1 (I need this as fast as possible)"){
-                        //TODO:
-                        res.send("You already have priority 1.")
-                        return;
-                    }
-                    totalPercentage += getPercentage(userData.savingGoals[i].priority)
-                }
-            }
-            console.log(getPercentage(newSavingGoalData.priority));
-            if (totalPercentage + getPercentage(newSavingGoalData.priority) > 1){
-                //TODO:
-                res.send("You don't have enough savings portions remaining.")
-                return;
-            }
-
-            // Setting new savingGoal data;
+            // for (let i = 0; i < userData.savingGoals.length; i++ ){
+            //     if(!userData.savingGoals[i].isDeleted && !userData.savingGoals[i].isAchieved){
+            //         //User can only have 1 Priority savingGoal;
+            //         if (userData.savingGoals[i].priority === "1 (I need this as fast as possible)" && newSavingGoalData.priority === "1 (I need this as fast as possible)"){
+            //             //TODO:
+            //             res.send("You already have a priority 1 goal.")
+            //             return;
+            //         }
+            //         totalPercentage += getPercentage(userData.savingGoals[i].priority)
+            //     }
+            // }
+            // if (totalPercentage + getPercentage(newSavingGoalData.priority) > 1){
+            //     //TODO:
+            //     res.send("You don't have enough savings portions remaining.")
+            //     return;
+            // }
+            console.log(userData);
+            // Setting new savingGoal data
             let newSavingGoal = newSavingGoalData;
             newSavingGoal.id = userData.savingGoals.length;
             newSavingGoal.isDeleted = false;
@@ -83,7 +85,7 @@ module.exports = {
 
             // res.json(newSavingGoalData);
             db.User
-            .findOneAndUpdate({ username: req.params.username }, { $set : { savingGoals : allSavingGoals }})
+            .findOneAndUpdate({ _id: req.body.user_id }, { $set : { savingGoals : allSavingGoals }})
             .then()
             .catch(err => res.status(422).json(err));
         })

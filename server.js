@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const authentication = require("./routes/authentication");
+const routes = require("./routes");
 const app = express();
 
 // Bodyparser middleware
@@ -32,6 +33,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 // Routes
 app.use("/api/auth", authentication);
+app.use("/", routes);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
