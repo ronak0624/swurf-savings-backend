@@ -24,10 +24,6 @@ module.exports = function validateSavingsInput(data) {
     errors.cost= "Please enter the cost of your goal";
   }
 
-  if (Validator.isEmpty(data.user_id)) {
-    errors.user_id= "You are not logged in";
-  }
-
   return {
     errors,
     isValid: isEmpty(errors)

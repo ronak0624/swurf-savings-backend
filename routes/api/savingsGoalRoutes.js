@@ -6,7 +6,7 @@ const savingGoalController = require("../../controllers/savingGoalController");
 //     .get(savingGoalController.findAllSavingGoals)
 
 router.route("/goals")
-    .get(savingGoalController.findAllValidSavingGoals)
+    .get(savingGoalController.validSavingsGoals)
     .post(savingGoalController.newSavingsGoal)
     .delete(savingGoalController.removeAllSavingGoals)
 
