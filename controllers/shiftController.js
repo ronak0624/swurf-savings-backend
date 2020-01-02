@@ -1,18 +1,6 @@
 const db = require("../models");
 
-const SAVING_GOAL_INCOME_PERCENTAGE = 0.3;
-const PRIORITY_1_PERCENTAGE= 0.5;
-const PRIORITY_2_PERCENTAGE = 0.3;
-const PRIORITY_3_PERCENTAGE = 0.2;
-var getPercentage = function(string){
-    switch (string){
-        case "1 (I need this as fast as possible)": proportion = PRIORITY_1_PERCENTAGE; break;
-        case "2 (I really want this)": proportion = PRIORITY_2_PERCENTAGE; break;
-        case "3 (I want this but don't need it right away)": proportion = PRIORITY_3_PERCENTAGE; break;
-        default : null
-    }
-    return proportion;
-}
+const SAVING_GOAL_INCOME_PERCENTAGE = 0.5;
 
 module.exports = {
     //For /api/:username/shifts
@@ -27,7 +15,7 @@ module.exports = {
     findAllValidShifts:function(req,res){
         db.User
         //Find the user that match the name;
-        .findOne({ username: req.params.username })
+        .findOne({ _id: req.headers.user })
         .then(userData => {
 
             // Remove the savingGoals which are deleted or achieved;
@@ -87,6 +75,53 @@ module.exports = {
             .findOneAndUpdate({ username: req.params.username }, { $set : { shifts : allShifts , savingGoals : allSavingGoals}})
             .then()
             .catch(err => res.status(422).json(err));
+        })
+        .catch(err => res.status(422).json(err)); 
+    },
+    // @POST api/shifts
+    newShift:function(req,res){
+        let updatedUserShiftsData;
+        let newShiftData = req.body;
+        db.User
+        //Find the user that match the name;
+        .findOne({ _id: req.headers.user })
+        .then(userData => {
+            let activeSavingsGoals = userData.savingsGoals.filter(goal => goal.isActive)
+
+            // Update how much user has left to complete in each savings goal depending on priority
+            
+
+            // //Push new shift to updated shifts array(not in the database yet);
+            // let allShifts = userData.shifts;
+            // allShifts.push(newShift);
+            // res.json(allShifts);
+
+            // // console.log(allShifts);
+            // // //Updating the price_remaining for saving goals;
+            // let allSavingGoals = userData.savingGoals;
+
+            // for(var i = 0 ; i < allSavingGoals.length; i++ ){
+            //     if(!allSavingGoals[i].isDeleted && !allSavingGoals[i].isAchieved){
+            //         let newPrice = allSavingGoals[i].price_remaining;
+            //         if(!newPrice){
+            //             allSavingGoals[i].price_remaining = 0;
+            //         }
+            //         newPrice += newShift.earnings * SAVING_GOAL_INCOME_PERCENTAGE * getPercentage(allSavingGoals[i].priority);
+            //         console.log("Value of newPrice", newPrice)
+            //         allSavingGoals[i].price_remaining = newPrice;
+            //         if (newPrice >= allSavingGoals[i].price){
+            //             allSavingGoals[i].isAchieved = true;
+            //         }
+            //     }
+            // }
+            // console.log('allSavingGoals have been updated!');
+            // console.log(allSavingGoals);
+
+            // // res.json(newShiftData);
+            // db.User
+            // .findOneAndUpdate({ username: req.params.username }, { $set : { shifts : allShifts , savingGoals : allSavingGoals}})
+            // .then()
+            // .catch(err => res.status(422).json(err));
         })
         .catch(err => res.status(422).json(err)); 
     },

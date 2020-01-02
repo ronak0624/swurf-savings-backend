@@ -55,7 +55,7 @@ module.exports = {
     },
 
     validSavingsGoals: function (req, res) {
-        if(!req.headers.user){
+        if (!req.headers.user) {
             res.status(500).json("You are not logged in")
         }
         db.User
@@ -64,7 +64,7 @@ module.exports = {
                 _id: req.headers.user
             })
             .then(userData => {
-            // Response contains all savings goals that the user has not achieved
+                // Response contains all savings goals that the user has not achieved
                 res.status(200).json(userData.savingsGoals.filter(goal => !goal.isAchieved));
             })
             .catch(err => res.status(422).json(err));
@@ -73,13 +73,16 @@ module.exports = {
     newSavingsGoal: function (req, res) {
 
         // Check validation
-        const {errors, isValid} = validateSavingsInput(req.body);
+        const {
+            errors,
+            isValid
+        } = validateSavingsInput(req.body);
 
         if (!isValid) {
             return res.status(400).json(errors);
         }
 
-        if(!req.headers.user){
+        if (!req.headers.user) {
             res.status(403).json("You are not logged in")
         }
 
@@ -89,6 +92,7 @@ module.exports = {
             priority: req.body.priority,
             cost: req.body.cost,
             cost_remaining: 0,
+            active: true,
             isAchieved: false,
         };
 
@@ -96,39 +100,29 @@ module.exports = {
             //Find the user that match the name;
             .findOneAndUpdate({
                 _id: req.headers.user
-            },{ 
-                $push: { savingsGoals: newSavingsGoal }
-            },{
-                new:true,
+            }, {
+                $push: {
+                    savingsGoals: newSavingsGoal
+                }
+            }, {
+                new: true,
                 useFindAndModify: false
             })
             .then(userData => res.status(200).json(userData.savingsGoals))
             .catch(err => res.status(422).json(err));
     },
 
-    removeAllSavingGoals: function (req, res) {
+    removeAllSavingsGoals: function (req, res) {
+        let savingsGoals = [];
         db.User
-            //Find the user that match the name;
-            .findOne({
-                username: req.params.username
-            })
-            .then(userData => {
-                let allSavingGoals = userData.savingGoals;
-                for (let i = 0; i < allSavingGoals.length; i++) {
-                    allSavingGoals[i].isDeleted = true;
+            .findOneAndUpdate({
+                _id: req.headers.user
+            }, {
+                $set: {
+                    savingsGoals: savingsGoals
                 }
-                res.json(allSavingGoals);
-                db.User
-                    .findOneAndUpdate({
-                        username: req.params.username
-                    }, {
-                        $set: {
-                            savingGoals: allSavingGoals
-                        }
-                    })
-                    .then()
-                    .catch(err => res.status(422).json(err));
             })
+            .then(user => res.status(200).json(user)) // Respond with user object.
             .catch(err => res.status(422).json(err));
     },
 

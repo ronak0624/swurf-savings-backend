@@ -20,7 +20,7 @@ module.exports = function validateSavingsInput(data) {
   } 
 
   // costchecks
-  if (data.cost === 0) {
+  if (!data.cost) {
     errors.cost= "Please enter the cost of your goal";
   }
 
