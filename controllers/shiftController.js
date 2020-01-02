@@ -106,6 +106,7 @@ module.exports = {
                 }
                 if(current_goal.cost_remaining > current_goal.cost){
                     current_goal.isAchieved = true;
+                    current_goal.active = false;
                     current_goal.cost_remaining = current_goal.cost
                 }
                 all_savings_goals[i] = current_goal

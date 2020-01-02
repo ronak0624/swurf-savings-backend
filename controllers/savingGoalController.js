@@ -22,36 +22,30 @@ var getPercentage = function (string) {
 }
 
 module.exports = {
-    //For /api/:username/savingGoals
-    findAllSavingGoals: function (req, res) {
-        db.User
-            //Find the user that match the name;
-            .findOne({
-                username: req.params.username
-            })
-            .then(userData => res.json(userData.savingGoals))
-            .catch(err => res.status(422).json(err));
-    },
-
-    findAllValidSavingGoals: function (req, res) {
-        db.User
-            //Find the user that match the name;
-            .findOne({
-                username: req.params.username
-            })
-            .then(userData => {
-
-                // Remove the savingGoals which are deleted or achieved;
-                let allSavingGoals = userData.savingGoals;
-                let allValidSavingGoals = [];
-                for (let i = 0; i < allSavingGoals.length; i++) {
-                    if (!allSavingGoals[i].isDeleted && !allSavingGoals[i].isAchieved) {
-                        allValidSavingGoals.push(allSavingGoals[i])
-                    };
-                }
-                res.json(allValidSavingGoals);
-            })
-            .catch(err => res.status(422).json(err));
+    toggleActive: function (req, res) {
+        db.User.findOne({
+            _id: req.headers.user
+        })
+        .then(userData => {
+            let toggledSavingsGoals = userData.savingGoals
+            toggledSavingsGoals[req.params.id].active = !toggledSavingsGoals[req.params.id].active
+            
+            db.User
+                //Find the user that match the name;
+                .findOneAndUpdate({
+                    _id: req.headers.user
+                },{
+                    $set: {
+                        savingGoals: toggledSavingsGoals
+                    }
+                },
+                {
+                    new: true,
+                    useFindAndModify: false
+                })
+                .then(res.status(200).json(req.params.id + " active toggled"))
+                .catch(err => res.status(422).json(err));
+        })
     },
 
     validSavingsGoals: function (req, res) {

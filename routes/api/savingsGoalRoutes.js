@@ -10,6 +10,8 @@ router.route("/goals")
     .post(savingGoalController.newSavingsGoal)
     .delete(savingGoalController.removeAllSavingsGoals)
 
+router.route("/goals/active/:id").get(savingGoalController.toggleActive)
+
 //Router for savingGoal:
 router.route("/goals/:id")
     .get(savingGoalController.findSavingGoalById)
