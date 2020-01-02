@@ -6,7 +6,7 @@ const shiftController = require("../../controllers/shiftController");
 //     .get(shiftController.findAllShifts)
 
 router.route("/")
-    .get(shiftController.findAllValidShifts)
+    .get(shiftController.findAllShifts)
     .post(shiftController.newShift)
     .delete(shiftController.removeAllShifts)
 
