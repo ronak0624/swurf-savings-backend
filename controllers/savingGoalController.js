@@ -1,4 +1,5 @@
 const db = require("../models");
+const mongoose = require("mongoose");
 const validateSavingsInput = require("../validation/newSavings");
 
 const PRIORITY_1_PERCENTAGE = 0.5;
@@ -23,29 +24,35 @@ var getPercentage = function (string) {
 
 module.exports = {
     toggleActive: function (req, res) {
+        let toggled = "" + req.params.id
         db.User.findOne({
             _id: req.headers.user
         })
         .then(userData => {
-            let toggledSavingsGoals = userData.savingGoals
-            toggledSavingsGoals[req.params.id].active = !toggledSavingsGoals[req.params.id].active
-            
+            let toggledSavingsGoals = userData.savingsGoals
+            for(const i in toggledSavingsGoals){
+                // Using == instead of === because _id is an object and parameter _id is a string......
+                // Awful and stupid convention here that frankly does not make sense to me but whatever, I guess the MONGODS know best
+                if(toggledSavingsGoals[i]._id == toggled){
+                    toggledSavingsGoals[i].active = !toggledSavingsGoals[i].active
+                }
+            }
             db.User
                 //Find the user that match the name;
                 .findOneAndUpdate({
                     _id: req.headers.user
                 },{
                     $set: {
-                        savingGoals: toggledSavingsGoals
+                        savingsGoals: toggledSavingsGoals
                     }
                 },
                 {
                     new: true,
                     useFindAndModify: false
                 })
-                .then(res.status(200).json(req.params.id + " active toggled"))
+                .then(user => res.status(200).json(user.savingsGoals))
                 .catch(err => res.status(422).json(err));
-        })
+        }).catch(err => res.status(422).json(err));
     },
 
     validSavingsGoals: function (req, res) {
@@ -59,7 +66,8 @@ module.exports = {
             })
             .then(userData => {
                 // Response contains all savings goals that the user has not achieved
-                res.status(200).json(userData.savingsGoals.filter(goal => !goal.isAchieved));
+                // res.status(200).json(userData.savingsGoals.filter(goal => !goal.isAchieved));
+                res.status(200).json(userData.savingsGoals);
             })
             .catch(err => res.status(422).json(err));
     },
@@ -82,6 +90,7 @@ module.exports = {
 
         // Setting new savingGoal data
         let newSavingsGoal = {
+            _id: mongoose.Types.ObjectId(),
             title: req.body.title,
             priority: req.body.priority,
             cost: req.body.cost,
@@ -115,6 +124,9 @@ module.exports = {
                 $set: {
                     savingsGoals: savingsGoals
                 }
+            },{
+                new: true,
+                useFindAndModify: false
             })
             .then(user => res.status(200).json(user)) // Respond with user object.
             .catch(err => res.status(422).json(err));

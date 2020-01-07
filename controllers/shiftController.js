@@ -99,10 +99,12 @@ module.exports = {
             // Divide total percentage of earnings dedicated to savings by how many active goals a user has
             // Then add this percentage multiplied by the shift earnings to each goal
             let savings_per_goal = SAVING_GOAL_INCOME_PERCENTAGE / userData.savingsGoals.filter(goal => goal.active).length;
+
             for (i = 0;i < all_savings_goals.length; i++){
                 let current_goal = all_savings_goals[i]
                 if(current_goal.active){
-                    all_savings_goals[i].cost_remaining += savings_per_goal * new_shift_data.earnings
+                    added_earnings = Math.round(savings_per_goal * new_shift_data.earnings)
+                    all_savings_goals[i].cost_remaining += added_earnings
                 }
                 if(current_goal.cost_remaining > current_goal.cost){
                     current_goal.isAchieved = true;
