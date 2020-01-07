@@ -1,108 +1,43 @@
 # swurf-savings-backend
 
+We are Swurf Savings: a savings tool made by rideshare drivers, for rideshare drivers.
+
+Swurf Savings is a web application that allows users to track their progress toward different savings goals with three tiers of importance based on what they prioritize.  The user has the ability to add/store their driving shifts which will impact the progress bars for each goal, calculated using its selected priority.  Using average shift income, which changes every time the user uploads a shift, the app provides accurate updates to the number of shifts required to reach a savings goal.
+
 ### END GOAL
 
 - Create Mongo database with model files for savings goals, user accounts, and shift data.
 - Express API routes that return the necessary JSON data for the front end. 
 
+## Getting Started
 
+In the project directory, you can run `npm start`, which runs the app in the development mode.
 
-### User information 
-```javascript
-{
-  _id: ObjectId,
+Open http://localhost:3000 to view it in the browser.
 
-  name: {
-    type: String,
-    required: true
-  },
+The page will reload if you make edits.
 
-  email: {
-    type: String,
-    required: true
-  },
+You will also see any errors logged in the console.
 
-  password: {
-    type: String,
-    required: true
-  },
+See deployment for notes on how to deploy the project on a live system.
 
-  time_created: {
-    type: Date,
-    default: Date.now
-  },
+### Installing
 
-  shifts:[{
-    _id: ObjectId,
-    company: {
-      type: String,
-      required: true
-    },
-    income: {
-      type: Double,
-      required: true
-    },
-    start_time: {
-      type: Date,
-      required: true
-    },
-    end_time: {
-      type: Date,
-      required: true
-    },
-    time_created: {
-      type: Date,
-      default: Date.now
-    }
-  }
-  ],
+In your terminal, you will run `npm install` to install the project's dependencies to your local machine.
 
-  savingGoals:[{
-    _id: ObjectId,
-    title: {
-      type: String,
-      required: true
-    },
-    price: {
-      type: Double,
-      required: true
-    },
-    price_remaining:{
-      type: Double,
-      required: true
-    },
-    priority: {
-      type: String,
-      required: true
-    },
-    time_created: {
-      type: Date,
-      default: Date.now
-    }
-  }],
+The frontend runs on a remote server; you can view the repository [here](https://github.com/ronak0624/swurf-savings)
 
-  achievedSavingGoals:[{
-    _id: ObjectId,
-    title: {
-      type: String,
-      required: true
-    },
-    price: {
-      type: Double,
-      required: true
-    },
-    price_remaining:{
-      type: Double,
-      required: true
-    },
-    priority: {
-      type: String,
-      required: true
-    },
-    time_created: {
-      type: Date,
-      default: Date.now
-    }
-  }],
-};
-```
+## Tech We used
+
+* Express
+* Controllor
+* Mongoose
+* Mongo DB Atlas
+* Login Authentication
+
+## Authors
+
+* **Ronak Patel**
+* **Andrew Lin**
+* **Leah Munson**
+* **Nicole Roberts**
