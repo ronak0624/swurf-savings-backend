@@ -1,4 +1,4 @@
-# swurf-savings-backend
+# Swurf-Savings-Backend
 
 We are Swurf Savings: a savings tool made by rideshare drivers, for rideshare drivers.
 
