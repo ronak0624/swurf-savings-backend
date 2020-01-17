@@ -27,6 +27,34 @@ In your terminal, you will run `npm install` to install the project's dependenci
 
 The frontend runs on a remote server; you can view the repository [here](https://github.com/ronak0624/swurf-savings)
 
+### Data Stucture
+For each user, he/she has the following properties:
+- username
+- email
+- password
+- time-created (auto-created)
+- shifts (Array) 
+  > Each shift in shifts array has the following properties:
+  - income
+  - start_time
+  - end_time
+  - time_created (auto-created)
+  - isDeleted (default: false. The user can delete the shift after he posted it. This record will still stay is the shifts array, but it will not be used for calculation.)
+
+- savingGoals (Array) 
+  > Each savingGoal in savingGoals array has the following properties:
+  - title
+  - price 
+  - price_remaining (will decrease everytime when the user post a new shift.)
+  - priority (1/2/3)
+  - time_created (auto-created)
+  - isDeleted (default: false. The user can delete the savingGoal after he posted it. This record will still stay in the savingGoals array, but it will not be used for calculation.)
+  - isAchieved (default: false. When the price_remaining of certain savingGoal <= 0, the isAchieved value will change to true.   This record will still stay is the savingGoals array, but it will not be used for the future calculation. )
+
+### Main Logic
+
+### All API ROUTES
+
 ## Tech We used
 
 * Express
@@ -34,6 +62,7 @@ The frontend runs on a remote server; you can view the repository [here](https:/
 * Mongoose
 * Mongo DB Atlas
 * Login Authentication
+* Postman
 
 ## Authors
 
