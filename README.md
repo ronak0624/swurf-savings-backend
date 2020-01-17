@@ -27,7 +27,7 @@ In your terminal, you will run `npm install` to install the project's dependenci
 
 The frontend runs on a remote server; you can view the repository [here](https://github.com/ronak0624/swurf-savings)
 
-### Data Stucture
+## Data Stucture
 For each user, he/she has the following properties:
 - username
 - email
@@ -51,9 +51,9 @@ For each user, he/she has the following properties:
   - isDeleted (default: false. The user can delete the savingGoal after he posted it. This record will still stay in the savingGoals array, but it will not be used for calculation.)
   - isAchieved (default: false. When the price_remaining of certain savingGoal <= 0, the isAchieved value will change to true.   This record will still stay is the savingGoals array, but it will not be used for the future calculation. )
 
-### Main Logic
+## Main Logic
 
-### All API ROUTES
+## All API ROUTES
 
 ## Tech We used
 
