@@ -9,6 +9,8 @@ Swurf Savings is a web application that allows users to track their progress tow
 * [Data Stucture](*data-structure)
 * [Main Logic](*main-logic)
 * [API Routes](*api-routes)
+* [Strectch Goals](*stretch-goals)
+* [Tech We Used](*tech-we-used)
 * [Authors](#authors)
 
 
@@ -49,6 +51,7 @@ For each user, he/she has the following properties:
 
 - shifts (Array) 
   > Each shift in shifts array has the following properties:
+  - id
   - income
   - start_time
   - end_time
@@ -57,6 +60,7 @@ For each user, he/she has the following properties:
   
 - savingGoals (Array) 
   > Each savingGoal in savingGoals array has the following properties:
+  - id
   - title
   - price 
   - price_remaining (will decrease everytime when the user post a new shift.)
@@ -87,18 +91,53 @@ e.g.
 
 
 ## API Routes
+For shifts：
+- Get all shifts of certain user (including deleted shifts)
+  - URL: /:username/allShifts
+  - Method: GET
+- Get all shifts of certain user (not including deleted shifts)
+  - URL: /:username/shifts
+  - Method: GET  
+- Delete all shifts of certain user
+  - URL: /:username/shifts
+  - Method: DELETE
+- Post a new shift of certain user
+  - URL: /:username/shifts
+  - Method: POST
+  
+- Get certain shift of certain user by id
+  - URL: /:username/shift/:id
+  - Method: GET
+- Delete certain shift of certain user by id
+  - URL: /:username/shift/:id
+  - Method: DELETE
 
-- /:username/allShifts
-  - .get
-
-
-
+For saving goals：
+- Get all saving goals of certain user (including deleted or achieved saving goals)
+  - URL: /:username/allSavingGoals
+  - Method: GET
+- Get all saving goals of certain user (not including deleted or achieved saving goals)
+  - URL: /:username/savingGoals
+  - Method: GET
+- Delete all saving goals of certain user
+  - URL: /:username/savingGoals
+  - Method: DELETE
+- Post a new saving goal of certain user
+  - URL: /:username/savingGoals
+  - Method: POST
+  
+- Get certain saving goal of certain user by id
+  - URL: /:username/savingGoal/:id
+  - Method: GET
+- Delete certain saving goal of certain user by id
+  - URL: /:username/savingGoal/:id
+  - Method: DELETE
 
 ## Strectch Goals
 
-- Use Plaid API for bank account linking
+- Use Plaid API for bank account linking.
 - Use Uber driver and other API to submit new shift automaticly.
-- Use different calculation for rush hour and non-rush hour & non rush hour
+- Use different calculation for rush hour & non rush hour.
 
 ## Tech We Used
 
