@@ -151,6 +151,6 @@ For saving goals：
 
 ## Authors
 * [**Ronak Patel**](https://github.com/ronak0624)
-* [**Andrew Lin**](https://github.com/andrewlin618){:target="_blank"}
+* [**Andrew Lin**](https://github.com/andrewlin618?target="_blank")
 * **Leah Munson**
 * **Nicole Roberts**
