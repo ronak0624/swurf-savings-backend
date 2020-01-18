@@ -150,7 +150,7 @@ For saving goals：
 * Postman
 
 ## Authors
-* [**Ronak Patel**] (https://github.com/ronak0624)
-* [**Ronak Patel**] (https://github.com/andrewlin618)
+* [**Ronak Patel**](https://github.com/ronak0624)
+* [**Ronak Patel**](https://github.com/andrewlin618)
 * **Leah Munson**
 * **Nicole Roberts**
