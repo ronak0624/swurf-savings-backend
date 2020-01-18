@@ -4,10 +4,20 @@ We are Swurf Savings: a savings tool made by rideshare drivers, for rideshare dr
 
 Swurf Savings is a web application that allows users to track their progress toward different savings goals with three tiers of importance based on what they prioritize.  The user has the ability to add/store their driving shifts which will impact the progress bars for each goal, calculated using its selected priority.  Using average shift income, which changes every time the user uploads a shift, the app provides accurate updates to the number of shifts required to reach a savings goal.
 
+* [End Goal](*end-goal)
+* [Getting Started](*getting-started)
+* [Data Stucture](*data-structure)
+* [Main Logic](*main-logic)
+* [API Routes](*api-routes)
+* [Authors](#authors)
+
+
 ## End Goal
 
 - Create Mongo database with model files for savings goals, user accounts, and shift data.
+
 - Express API routes that return the necessary JSON data for the front end. 
+
 
 ## Getting Started
 
@@ -21,18 +31,22 @@ You will also see any errors logged in the console.
 
 See deployment for notes on how to deploy the project on a live system.
 
+
 ### Installing
 
 In your terminal, you will run `npm install` to install the project's dependencies to your local machine.
 
 The frontend runs on a remote server; you can view the repository [here](https://github.com/ronak0624/swurf-savings)
 
+
 ## Data Stucture
+
 For each user, he/she has the following properties:
 - username
 - email
 - password
 - time-created (auto-created)
+
 - shifts (Array) 
   > Each shift in shifts array has the following properties:
   - income
@@ -40,7 +54,7 @@ For each user, he/she has the following properties:
   - end_time
   - time_created (auto-created)
   - isDeleted (default: false. The user can delete the shift after he posted it. This record will still stay is the shifts array, but it will not be used for calculation.)
-
+  
 - savingGoals (Array) 
   > Each savingGoal in savingGoals array has the following properties:
   - title
@@ -50,6 +64,7 @@ For each user, he/she has the following properties:
   - time_created (auto-created)
   - isDeleted (default: false. The user can delete the savingGoal after he posted it. This record will still stay in the savingGoals array, but it will not be used for calculation.)
   - isAchieved (default: false. When the price_remaining of certain savingGoal <= 0, the isAchieved value will change to true.   This record will still stay is the savingGoals array, but it will not be used for the future calculation. )
+
 
 ## Main Logic
 
@@ -70,7 +85,22 @@ e.g.
   - Priority 3: A new jacket for his dad ($100 - $10 = $90) 
 - We use averageShiftIncome = totalInmcome / totalShiftWorked to calculate the averageShiftIncome, and use shiftRemaining = price_remaining / (averageShiftIncom * 50% * priority）to calculate the shiftRemaining for certain savingGoal.
 
-## Tech We used
+
+## API Routes
+
+- /:username/allShifts
+  - .get
+
+
+
+
+## Strectch Goals
+
+- Use Plaid API for bank account linking
+- Use Uber driver and other API to submit new shift automaticly.
+- Use different calculation for rush hour and non-rush hour & non rush hour
+
+## Tech We Used
 
 * Express
 * Controllor
@@ -80,7 +110,6 @@ e.g.
 * Postman
 
 ## Authors
-
 * **Ronak Patel**
 * **Andrew Lin**
 * **Leah Munson**
