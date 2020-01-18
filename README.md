@@ -1,15 +1,15 @@
 # Swurf-Savings-Backend
 
-We are Swurf Savings: a savings tool made by rideshare drivers, for rideshare drivers.
+We are Swurf Savings: a savings tool made by ride-share drivers, for ride-share drivers.
 
 Swurf Savings is a web application that allows users to track their progress toward different savings goals with three tiers of importance based on what they prioritize.  The user has the ability to add/store their driving shifts which will impact the progress bars for each goal, calculated using its selected priority.  Using average shift income, which changes every time the user uploads a shift, the app provides accurate updates to the number of shifts required to reach a savings goal.
 
 * [End Goal](*end-goal)
 * [Getting Started](*getting-started)
-* [Data Stucture](*data-structure)
+* [Data Structure](*data-structure)
 * [Main Logic](*main-logic)
 * [API Routes](*api-routes)
-* [Strectch Goals](*stretch-goals)
+* [Stretch Goals](*stretch-goals)
 * [Tech We Used](*tech-we-used)
 * [Authors](#authors)
 
@@ -41,7 +41,7 @@ In your terminal, you will run `npm install` to install the project's dependenci
 The frontend runs on a remote server; you can view the repository [here](https://github.com/ronak0624/swurf-savings)
 
 
-## Data Stucture
+## Data Structure
 
 For each user, he/she has the following properties:
 - username
@@ -63,7 +63,7 @@ For each user, he/she has the following properties:
   - id
   - title
   - price 
-  - price_remaining (will decrease everytime when the user post a new shift.)
+  - price_remaining (will decrease every time when the user post a new shift.)
   - priority (1/2/3)
   - time_created (auto-created)
   - isDeleted (default: false. The user can delete the savingGoal after he posted it. This record will still stay in the savingGoals array, but it will not be used for calculation.)
@@ -87,7 +87,7 @@ e.g.
   - Priority 1: A new iPhone 11 ($699 - $25 = $674)
   - Priority 2: A new Bike ($300 - $15 = $285)
   - Priority 3: A new jacket for his dad ($100 - $10 = $90) 
-- We use averageShiftIncome = totalInmcome / totalShiftWorked to calculate the averageShiftIncome, and use shiftRemaining = price_remaining / (averageShiftIncom * 50% * priority）to calculate the shiftRemaining for certain savingGoal.
+- We use averageShiftIncome = totalIncome / totalShiftWorked to calculate the averageShiftIncome, and use shiftRemaining = price_remaining / (averageShiftIncome * 50% * priority）to calculate the shiftRemaining for certain savingGoal.
 
 
 ## API Routes
@@ -133,16 +133,16 @@ For saving goals：
   - URL: /:username/savingGoal/:id
   - Method: DELETE
 
-## Strectch Goals
+## Stretch Goals
 
 - Use Plaid API for bank account linking.
-- Use Uber driver and other API to submit new shift automaticly.
+- Use Uber driver and other API to submit new shift automatically.
 - Use different calculation for rush hour & non rush hour.
 
 ## Tech We Used
 
 * Express
-* Controllor
+* Controller
 * Mongoose
 * Mongo DB Atlas
 * Login Authentication
